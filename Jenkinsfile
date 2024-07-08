@@ -1,22 +1,31 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building...'
-                sh 'mvn clean install'
-		echo 'success built'
+                // Faz o checkout do repositório na branch main
+                git branch: 'main', url: 'https://github.com/vitorgomes/Trabalho_5_Atividade_5.1_Pipeline_Jenkinsfile.git'
             }
         }
-
+        stage('Build') {
+            steps {
+                // Executa o build usando Maven
+                sh 'mvn clean install'
+            }
+        }
         stage('Test') {
             steps {
-                echo 'Running tests...'
+                // Executa os testes com JUnit
                 sh 'mvn test'
-		echo 'tests ok'
             }
         }
     }
-}
 
+    post {
+        always {
+            // Publica os resultados dos testes
+            junit '**/target/surefire-reports/*.xml'
+        }
+    }
+}
