@@ -8,8 +8,8 @@ pipeline {
             steps {
                 git branch : 'main', url : 'https://github.com/vitorgomes/Trabalho_5_Atividade_5.1_Pipeline_Jenkinsfile'
                 echo 'Building...'
-                sh 'vn clean package'
-                echo 'uccess built...'
+                sh 'mvn clean package'
+                echo 'success built...'
             }
             post {
                 success {
