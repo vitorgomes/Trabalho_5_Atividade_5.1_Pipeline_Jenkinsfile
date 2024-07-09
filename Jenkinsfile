@@ -1,27 +1,25 @@
 pipeline {
     agent any
-    
+    tools{
+        maven "M3"
+    }
+
     stages {
         stage('Build') {
             steps {
-                echo "HELLO"
-                which mvn
-                echo "WORLD"
-
-
+                git 'https://github.com/vitorgomes/Trabalho_5_Atividade_5.1_Pipeline_Jenkinsfile'
                 echo 'Building...'
-                sh 'mvn clean install'
-		        echo 'success built'
+                sh 'mvn clean package'
+		        echo 'success built...'
             }
         }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'mvn test'
-		        echo 'tests ok'
+            post {
+               success {
+                    echo 'running tests...'
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                        }
+                    }
+                }
             }
         }
-    }
-}
-
