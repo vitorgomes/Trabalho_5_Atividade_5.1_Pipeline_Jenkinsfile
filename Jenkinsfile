@@ -5,7 +5,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo "HELLO"
-                pwd
                 which mvn
                 echo "WORLD"
 
