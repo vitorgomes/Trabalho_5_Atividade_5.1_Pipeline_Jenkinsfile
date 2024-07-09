@@ -4,9 +4,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo "HELLO"
+                pwd
+                which mvn
+                echo "WORLD"
+
+
                 echo 'Building...'
                 sh 'mvn clean install'
-		echo 'success built'
+		        echo 'success built'
             }
         }
 
@@ -14,7 +20,7 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 sh 'mvn test'
-		echo 'tests ok'
+		        echo 'tests ok'
             }
         }
     }
