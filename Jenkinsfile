@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo 'Building...'
                 sh 'mvn clean package'
-                echo 'success built...'
+                echo 'Build completed.'
             }
         }
         stage('Test') {
@@ -24,9 +24,12 @@ pipeline {
         }
     }
     post {
+        always {
+            echo 'Pipeline completed.'
+        }
         success {
             echo 'Tests completed successfully...'
-            junit '**/target/surefire-reports/TEST-*.xml'
+            junit '**/target/surefire-reports/*.xml'
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
         failure {
