@@ -29,6 +29,7 @@ pipeline {
         }
         success {
             echo 'Tests completed successfully...'
+            sh 'ls -R target/surefire-reports/'
             junit '**/target/surefire-reports/*.xml'
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
