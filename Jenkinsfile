@@ -20,6 +20,8 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 sh 'mvn test'
+                echo 'TARGET'
+                sh 'ls -R target/'
             }
         }
     }
